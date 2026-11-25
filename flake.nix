@@ -27,7 +27,7 @@
             paramVersion = versionName;
           };
       in {
-        devShells = builtins.mapAttrs (_: mkDevShell) versions // {default = mkDevShell defaultVersion;};
+        devShells = builtins.mapAttrs (name: _: mkDevShell name) versions // {default = mkDevShell defaultVersion;};
       }
     );
 }
