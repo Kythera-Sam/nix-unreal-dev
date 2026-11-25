@@ -26,8 +26,15 @@
             inherit pkgs;
             paramVersion = versionName;
           };
+
+        mkEditorApp = versionName: {
+          type = "app";
+          program = pkgs.lib.getExe (mkDevShell versionName).editor;
+          meta.description = "Unreal Editor ${config.${versionName}.version}";
+        };
       in {
         devShells = builtins.mapAttrs (name: _: mkDevShell name) versions // {default = mkDevShell defaultVersion;};
+        apps = builtins.mapAttrs (name: _: mkEditorApp name) versions // {default = mkEditorApp defaultVersion;};
       }
     );
 }

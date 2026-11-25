@@ -156,5 +156,13 @@
     profile = shellHookContent;
   };
 
+  # Runs the engine's editor in the same FHS env. Its arguments go to the editor.
+  editorEnv = pkgs.buildFHSEnv {
+    name = "unreal-editor-${version}";
+    targetPkgs = pkgs: unrealPkgs;
+    runScript = "${enginePath}/Engine/Binaries/Linux/UnrealEditor";
+    profile = shellHookContent;
+  };
+
 in
-  fhsEnv.env
+  fhsEnv.env // {editor = editorEnv;}

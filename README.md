@@ -81,6 +81,20 @@ With a specific version:
 nix-shell unreal.nix --arg paramVersion '"5_5"'
 ```
 
+### Launching the Editor
+
+`launch-editor.sh` runs the Unreal Editor inside the same environment as the shell. It takes an optional version name
+from `unreal-versions.nix`. Without one, it runs the default version. Any other arguments go to the editor.
+
+```bash
+./launch-editor.sh                                # default version, project browser
+./launch-editor.sh 5_5                            # a specific version
+./launch-editor.sh 5_5 /path/to/MyGame.uproject   # open a project
+```
+
+The script runs the flake's editor app for that version. You can also run it directly with
+`nix run .#5_5 -- /path/to/MyGame.uproject`.
+
 ## Adding Additional Engine Versions
 
 To support additional Unreal Engine installs:
